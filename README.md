@@ -79,6 +79,29 @@ python app.py
 
 The application will be available at **http://127.0.0.1:5001**
 
+## Deploying To GitHub And Vercel
+
+### 1. Push The Project To GitHub
+```bash
+git init
+git add .
+git commit -m "Initial deployment setup"
+git branch -M main
+git remote add origin <your-github-repo-url>
+git push -u origin main
+```
+
+### 2. Create A Vercel Project
+1. Sign in to Vercel and import the GitHub repository.
+2. Keep the default framework detection.
+3. Add an environment variable named `DATABASE_URL`.
+
+### 3. Use A Production Database
+SQLite is fine for local development, but Vercel functions do not provide persistent local disk storage. For a real deployment, point `DATABASE_URL` to a managed Postgres database such as Neon, Supabase, or Railway.
+
+### 4. Deploy
+After import, Vercel will use the Python function entrypoint in `api/index.py` and the route mapping in `vercel.json`.
+
 ## API Endpoints
 
 | Method | Endpoint | Description |
@@ -147,6 +170,7 @@ Configure as needed:
 FLASK_ENV=development
 FLASK_DEBUG=True
 SQLALCHEMY_DATABASE_URI=sqlite:///security_tickets.db
+DATABASE_URL=
 ```
 
 ## Security Features
